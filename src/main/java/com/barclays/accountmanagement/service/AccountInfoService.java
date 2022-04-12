@@ -15,16 +15,19 @@ public class AccountInfoService {
 	@Autowired
 	private AccountInfoDao accountInfoDao;
 
+	//Get all accounts in database
 	public List<AccountInfo> getAllAccounts() {
 		return accountInfoDao.getAllAccounts();
 
 	}
 
+	//Add transactions to transaction table
 	public AccountInfo addTransaction(AccountInfo accountInfo) {
 		return accountInfoDao.addTransaction(accountInfo);
 
 	}
 
+	//Get Accounts by Account no.
 	public List<AccountInfo> findByAccountNo(long accno) {
 		return accountInfoDao.findByAccountNo(accno);
 
