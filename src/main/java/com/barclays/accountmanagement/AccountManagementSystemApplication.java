@@ -9,15 +9,14 @@ import com.barclays.accountmanagement.entity.Transaction;
 
 import net.bytebuddy.utility.RandomString;
 
+//Main Class to start the Application 
 @SpringBootApplication
 public class AccountManagementSystemApplication {
-	
+
 	public static void main(String[] args) {
-	
+
 		SpringApplication.run(AccountManagementSystemApplication.class, args);
-		
-		
+
 	}
 
-	
 }
