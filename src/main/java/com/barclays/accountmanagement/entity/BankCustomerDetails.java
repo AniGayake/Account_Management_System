@@ -37,7 +37,7 @@ public class BankCustomerDetails {
 	
 	@Email
 	public String emailAddress;
-	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
 	public LocalDate dob;
 	public BankCustomerDetails() {
 		this.customerId= generateCustomerId();

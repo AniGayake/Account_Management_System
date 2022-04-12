@@ -21,6 +21,8 @@ public class Transaction {
 	public LocalTime transactionTIme;
 	public String transactionType;
 	public String transactionSubType;
+	public double transactionAmount;
+	public long accountNumber;
 	
 	
 	public Transaction() {
@@ -39,6 +41,24 @@ public class Transaction {
 		this.transactionType = transactionType;
 		this.transactionSubType = transactionSubType;
 	}
+	
+	
+	public double getTransactionAmount() {
+		return transactionAmount;
+	}
+
+	public void setTransactionAmount(double transactionAmount) {
+		this.transactionAmount = transactionAmount;
+	}
+
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -78,8 +98,8 @@ public class Transaction {
 	
 	public String generateTransactionId() {
 		 
-	    int leftLimit = 65; // letter 'a'
-	    int rightLimit = 91; // letter 'z'
+	    int leftLimit = 65; // letter 'A'
+	    int rightLimit = 91; // letter 'Z'
 	    int targetStringLength = 4;
 	    Random random = new Random();
 	    StringBuilder buffer = new StringBuilder(targetStringLength);
