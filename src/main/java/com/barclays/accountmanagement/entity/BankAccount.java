@@ -11,12 +11,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "BankAccount")
 public class BankAccount {
 	@Id
-	@Min(value = 10)
+	@Min(value = 10, message="Account Number should be of 10 digits")
 	@Max(value = 10)
 	@NotNull
 	public long accountNumber;
 	
-	@Min(value = 6)
+	@Min(value = 6, message="Customer ID should be of 6 digits")
 	@Max(value = 6)
 	public long customerId;
 	
