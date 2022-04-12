@@ -53,37 +53,76 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/transaction")
-	public void transaction(@RequestBody TransactionRequestPayload transactionRequestPayload){
+	public ResponseEntity<Object> transaction(@RequestBody TransactionRequestPayload transactionRequestPayload){
+		Transaction transactionDetails = null;
 		
 		if(transactionRequestPayload.getType().equals("credit")) {
-			credit(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount());
 			
-			updateTransactionDetails(transactionRequestPayload);
-			
+			if(credit(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount())) {
+				transactionDetails= updateTransactionDetails(transactionRequestPayload);
+				return ResponseHandler.generateResponse("success", HttpStatus.OK,transactionDetails);
+			}
+	
 		}else if(transactionRequestPayload.getType().equals("debit")) {
-			withdraw(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount());
+			if(debit(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount())) {
+				
+				transactionDetails= updateTransactionDetails(transactionRequestPayload);
+				return ResponseHandler.generateResponse("success", HttpStatus.OK,transactionDetails);
+			}
 			
-			updateTransactionDetails(transactionRequestPayload);
+			
 		}
+		
+		return ResponseHandler.generateResponse("could not process your transaction", HttpStatus.BAD_REQUEST,null);
 	}
 	
 	
-	public void withdraw(long accountNumber,double amountToWithdraw) {
-		BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
-		bankAccountService.updateByaccountNumber(account.getCurrentBalance()- amountToWithdraw, accountNumber);	
-	}
-	
-	public void credit(long accountNumber,double creditAmount) {
-		BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
-		bankAccountService.updateByaccountNumber(account.getCurrentBalance() + creditAmount, accountNumber);	
+	public boolean debit(long accountNumber,double amountToWithdraw) {
+		try {
+			BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
+			if(amountToWithdraw<=account.getCurrentBalance()) 
+			{
+				bankAccountService.updateByaccountNumber(account.getCurrentBalance()- amountToWithdraw, accountNumber);	
+				return true;
+				
+			}else {
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return false;
+		
+		
+		
 		
 	}
 	
-	public void updateTransactionDetails(TransactionRequestPayload transactionRequestPayload){
+	public boolean credit(long accountNumber,double creditAmount) {
+		try {
+			BankAccount account = bankAccountService.findByAccountNumber(accountNumber);	
+			bankAccountService.updateByaccountNumber(account.getCurrentBalance() + creditAmount, accountNumber);
+			return true;
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+			
+		
+	}
+	
+	public Transaction updateTransactionDetails(TransactionRequestPayload transactionRequestPayload){
 		Transaction newTransaction= new Transaction();
 		newTransaction.setTransactionType(transactionRequestPayload.getType());
 		newTransaction.setTransactionSubType(transactionRequestPayload.getSubType());
+		newTransaction.setAccountNumber(transactionRequestPayload.getAccountNumber());
+		newTransaction.setTransactionAmount(transactionRequestPayload.getAmount());
 		
 		transactionService.createTransaction(newTransaction);
+		return newTransaction;
 	}
 }
