@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+//Table for User Details 
 @Entity
 @Table(name = "Users")
 public class Users {
@@ -12,31 +13,31 @@ public class Users {
 	@NotNull
 	public long customerId;
 	public String password;
-	//public int roleId;
-	
+	// public int roleId;
+
 	public Users() {
-		
+
 	}
-	
-	
+
 	public Users(@NotNull long customerId, String password, int roleId) {
 		super();
 		this.customerId = customerId;
 		this.password = password;
-		//this.roleId = roleId;
+		// this.roleId = roleId;
 	}
-
-
 
 	public long getCustomerId() {
 		return customerId;
 	}
+
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -47,8 +48,5 @@ public class Users {
 //		this.roleId = roleId;
 //	}
 //	
-	
-	
 
 }
-
