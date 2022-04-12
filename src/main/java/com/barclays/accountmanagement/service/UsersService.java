@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.barclays.accountmanagement.dao.UsersRepo;
 import com.barclays.accountmanagement.entity.Users;
 
+//Service class for Users
 @Service
 @Transactional
 public class UsersService {

@@ -9,6 +9,7 @@ import com.barclays.accountmanagement.dao.BankAccountRepo;
 import com.barclays.accountmanagement.dao.BankCustomerDetailsRepo;
 import com.barclays.accountmanagement.entity.BankCustomerDetails;
 
+//Service Class for BankCustomerDetails
 @Service
 @Transactional
 public class BankCustomerDetailsService {
