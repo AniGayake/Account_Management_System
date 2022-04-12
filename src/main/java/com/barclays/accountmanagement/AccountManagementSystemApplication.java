@@ -1,13 +1,9 @@
 package com.barclays.accountmanagement;
 
-import java.util.Random;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.barclays.accountmanagement.entity.Transaction;
-
-import net.bytebuddy.utility.RandomString;
 
 //Main Class to start the Application 
 @SpringBootApplication

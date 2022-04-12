@@ -51,6 +51,7 @@ public class UserController {
 		 Users users = usersService.findByCustomerId(customer_id);
 		 
 		 if(users==null) {
+			 System.out.println("User doesn't exist, contact Bank Manager");
 			 return false;
 		 }
 		 else {
