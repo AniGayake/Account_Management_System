@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.barclays.accountmanagement.dao.TransactionRepo;
 import com.barclays.accountmanagement.entity.Transaction;
 
+//Service class for Transaction
 @Service
 @Transactional
 public class TransactionService {
