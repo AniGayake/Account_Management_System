@@ -36,10 +36,10 @@ public class BankCustomerDetailsController {
 	//Get user by PAN Number if present no need to create account else create
 
 	@GetMapping("/getdetailsbypan/{pannumber}")
-	public ResponseEntity<Object> getUserDetailsByPan(@PathVariable String panNumber) {
+	public ResponseEntity<Object> getUserDetailsByPan(@PathVariable String pannumber) {
 		try {
 			
-			BankCustomerDetails bankCustomerDetails =bankCustomerDetailsService.getDetailsByPan(panNumber);
+			BankCustomerDetails bankCustomerDetails =bankCustomerDetailsService.getDetailsByPan(pannumber);
 			if(!bankCustomerDetails.equals(null))
 			return ResponseHandler.generateResponse("success",HttpStatus.OK, bankCustomerDetails);
 			else 
