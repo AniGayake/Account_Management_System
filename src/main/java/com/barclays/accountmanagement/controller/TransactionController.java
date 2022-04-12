@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.accountmanagement.entity.BankAccount;
 import com.barclays.accountmanagement.entity.Transaction;
+import com.barclays.accountmanagement.entity.TransactionRequestPayload;
 import com.barclays.accountmanagement.response.ResponseHandler;
+import com.barclays.accountmanagement.service.BankAccountService;
 import com.barclays.accountmanagement.service.TransactionService;
 
 @RestController
@@ -20,6 +23,9 @@ public class TransactionController {
 
 	@Autowired
 	private TransactionService transactionService;
+	@Autowired
+	private BankAccountService bankAccountService;
+	
 	
 	@GetMapping("/gettransaction/{transactionId}")
 	public ResponseEntity<Object> getTransaction(@PathVariable String transactionId){
@@ -44,5 +50,40 @@ public class TransactionController {
 			// TODO: handle exception
 			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
 		}
+	}
+	
+	@PostMapping("/transaction")
+	public void transaction(@RequestBody TransactionRequestPayload transactionRequestPayload){
+		
+		if(transactionRequestPayload.getType().equals("credit")) {
+			credit(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount());
+			
+			updateTransactionDetails(transactionRequestPayload);
+			
+		}else if(transactionRequestPayload.getType().equals("debit")) {
+			withdraw(transactionRequestPayload.getAccountNumber(),transactionRequestPayload.getAmount());
+			
+			updateTransactionDetails(transactionRequestPayload);
+		}
+	}
+	
+	
+	public void withdraw(long accountNumber,double amountToWithdraw) {
+		BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
+		bankAccountService.updateByaccountNumber(account.getCurrentBalance()- amountToWithdraw, accountNumber);	
+	}
+	
+	public void credit(long accountNumber,double creditAmount) {
+		BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
+		bankAccountService.updateByaccountNumber(account.getCurrentBalance() + creditAmount, accountNumber);	
+		
+	}
+	
+	public void updateTransactionDetails(TransactionRequestPayload transactionRequestPayload){
+		Transaction newTransaction= new Transaction();
+		newTransaction.setTransactionType(transactionRequestPayload.getType());
+		newTransaction.setTransactionSubType(transactionRequestPayload.getSubType());
+		
+		transactionService.createTransaction(newTransaction);
 	}
 }
