@@ -1,22 +1,21 @@
 package com.barclays.accountmanagement.entity;
 
-import java.security.SecureRandom;
-import java.sql.Time;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
-//Table to save and update Transaction Details 
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
 
 	@Id
+	@Min(value=10, message="Transaction ID will be of 10 alpanumeric value")
 	public String transactionId;
 	public long transactionRefNo;
 	public LocalDate transactionDate;
