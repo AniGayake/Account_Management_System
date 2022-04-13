@@ -51,19 +51,15 @@ public class TransactionController {
 			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
 		}
 	}
-<<<<<<< HEAD
 
-=======
-	//Recent 5 transactions
-	
+	// Recent 5 transactions
+
 	@GetMapping("/topfiveTransaction/{accountNumber}")
 	public List<Transaction> getFiveTransaction(@PathVariable long accountNumber) {
 		List<Transaction> transaction = transactionService.findByAccountNumber(accountNumber);
 		return transaction;
 	}
-	
-	
->>>>>>> 2d463ceb995ba4692eb9f777eef7030feb3c355c
+
 	@PostMapping("/transaction")
 	public ResponseEntity<Object> transaction(@RequestBody TransactionRequestPayload transactionRequestPayload) {
 		Transaction transactionDetails = null;
@@ -90,27 +86,21 @@ public class TransactionController {
 	public boolean debit(long accountNumber, double amountToWithdraw) {
 		try {
 			BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
-<<<<<<< HEAD
-			if (account != null) {
+			if (amountToWithdraw <= account.getCurrentBalance()) {
+				bankAccountService.updateByaccountNumber(account.getCurrentBalance() - amountToWithdraw, accountNumber);
+				return true;
 
+			} else {
+
+			}
+			if (transactionService.getByPerDayLimit(accountNumber, amountToWithdraw) && amountToWithdraw <= 10000) {
 				if (amountToWithdraw <= account.getCurrentBalance()) {
 					bankAccountService.updateByaccountNumber(account.getCurrentBalance() - amountToWithdraw,
 							accountNumber);
 					return true;
-
-				} else {
-
 				}
-=======
-			if(transactionService.getByPerDayLimit(accountNumber,amountToWithdraw) && amountToWithdraw<=10000){
-			if(amountToWithdraw<=account.getCurrentBalance()) 
-			{
-				bankAccountService.updateByaccountNumber(account.getCurrentBalance()- amountToWithdraw, accountNumber);	
-				return true;
-			}
-			}else {
+			} else {
 				System.out.println("Per day limit exceed :(");
->>>>>>> 2d463ceb995ba4692eb9f777eef7030feb3c355c
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -118,12 +108,7 @@ public class TransactionController {
 			return false;
 		}
 		return false;
-<<<<<<< HEAD
 
-=======
-		
-			
->>>>>>> 2d463ceb995ba4692eb9f777eef7030feb3c355c
 	}
 
 	public boolean credit(long accountNumber, double creditAmount) {
