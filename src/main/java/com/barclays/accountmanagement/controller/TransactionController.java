@@ -89,13 +89,14 @@ public class TransactionController {
 	public boolean debit(long accountNumber,double amountToWithdraw) {
 		try {
 			BankAccount account = bankAccountService.findByAccountNumber(accountNumber);
+			if(transactionService.getByPerDayLimit(accountNumber,amountToWithdraw) && amountToWithdraw<=10000){
 			if(amountToWithdraw<=account.getCurrentBalance()) 
 			{
 				bankAccountService.updateByaccountNumber(account.getCurrentBalance()- amountToWithdraw, accountNumber);	
 				return true;
-				
+			}
 			}else {
-				
+				System.out.println("Per day limit exceed :(");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -104,9 +105,7 @@ public class TransactionController {
 		}
 		return false;
 		
-		
-		
-		
+			
 	}
 	
 	public boolean credit(long accountNumber,double creditAmount) {
