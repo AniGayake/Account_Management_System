@@ -33,8 +33,13 @@ public class BankCustomerDetailsController {
 	@Autowired
 	private UsersService usersService;
 	
-	//Get user by PAN Number if present no need to create account else create
-
+	/*
+	 * Get User 
+	 * by
+	 * PAN Number 
+	 * if present no need to create account 
+	 * else create
+	 */
 	@GetMapping("/getdetailsbypan/{pannumber}")
 	public ResponseEntity<Object> getUserDetailsByPan(@PathVariable String pannumber) {
 		try {
@@ -52,7 +57,9 @@ public class BankCustomerDetailsController {
 		
 	}
 	
-	//Get Account details
+	/*
+	 * Get Account details
+	 */
 	@GetMapping("/getcustdetails/{customerId}")
 	public ResponseEntity<Object> getCustomerDetailsById(@PathVariable Long customerId) {
 		try {
@@ -68,8 +75,12 @@ public class BankCustomerDetailsController {
 		}
 	}
 	
-	
-	//Create account
+	/*
+	 * Create Account
+	 * by
+	 * Bank Manager- Admin
+	 * 
+	 */
 	@PostMapping("/adduserdetails")
 	public ResponseEntity<Object> addUserDetails(@RequestBody BankCustomerDetails customerDetails){
 		
@@ -128,7 +139,10 @@ public class BankCustomerDetailsController {
 		bankAccountService.createAccount(bankAccount);
 		return bankAccount;
 	}
-	//User table gets details from here
+	
+	/*
+	 * User table populated by the details from here
+	 */
 	public Users createNewLoginCredentials(BankCustomerDetails bankCustomerDetails) {
 		Users newUser = new Users();
 		newUser.customerId=bankCustomerDetails.getCustomerId();
