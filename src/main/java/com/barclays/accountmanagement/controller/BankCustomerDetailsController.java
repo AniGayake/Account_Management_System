@@ -94,7 +94,7 @@ public class BankCustomerDetailsController {
 			
 				Users newUser = createNewLoginCredentials(bankCustomerDetails);
 				
-				sendEmail(newUser,customerDetails);
+//				sendEmail(newUser,customerDetails);
 				
 				return ResponseHandler.generatResponseForAccountCreation("Success", HttpStatus.CREATED, bankCustomerDetails,
 						createbankAccount(bankCustomerDetails));
