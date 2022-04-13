@@ -1,5 +1,6 @@
 package com.barclays.accountmanagement.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -26,5 +27,8 @@ public class TransactionService {
 	
 	public Transaction createTransaction(Transaction transaction) {
 		return transactionRepo.save(transaction);
+	}
+	public List<Transaction> findByAccountNumber(long accountNumber) {
+		return transactionRepo.findByAccountNumber(accountNumber);
 	}
 }
