@@ -1,5 +1,6 @@
 package com.barclays.accountmanagement.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,14 @@ public class TransactionController {
 			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
 		}
 	}
+	//Recent 5 transactions
+	
+	@GetMapping("/topfiveTransaction/{accountNumber}")
+	public List<Transaction> getFiveTransaction(@PathVariable long accountNumber) {
+		List<Transaction> transaction = transactionService.findByAccountNumber(accountNumber);
+		return transaction;
+	}
+	
 	
 	@PostMapping("/transaction")
 	public ResponseEntity<Object> transaction(@RequestBody TransactionRequestPayload transactionRequestPayload){
