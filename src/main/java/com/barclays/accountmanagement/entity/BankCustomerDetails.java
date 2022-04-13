@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,19 +20,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class BankCustomerDetails {
 	@Id
 	@NotNull
-	@Min(value = 6)
+	@Min(value =6, message="Customer ID is mandatory")
 	@Max(value = 6)
 	public long customerId;
-
-	@Size(min = 11, max = 11)
+	
+	@NotEmpty
+	@Size(min = 11, max = 11, message="PAN Number is mandatory and should be of 11 characters")
 	public String panNumber;
-
-	@Min(value = 12)
-	@Max(value = 12)
+	
+	@Min(value =12)
+	@Max(value = 12, message="Aadhar Number is mandatory and should be of 12 digits")
 	public String aadharNumber;
 
 	public String name;
 	public String address;
+	
+	@Email
 	public String emailAddress;
 //	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
 	public LocalDate dob;
@@ -61,11 +66,13 @@ public class BankCustomerDetails {
 		this.customerId = customerId;
 	}
 
-	public String getPANNumber() {
+	
+
+	public String getPanNumber() {
 		return panNumber;
 	}
 
-	public void setPANNumber(String panNumber) {
+	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
 	}
 
