@@ -66,11 +66,13 @@ public class BankCustomerDetails {
 		this.customerId = customerId;
 	}
 
-	public String getPANNumber() {
+	
+
+	public String getPanNumber() {
 		return panNumber;
 	}
 
-	public void setPANNumber(String panNumber) {
+	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
 	}
 

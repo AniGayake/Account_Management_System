@@ -1,5 +1,6 @@
 package com.barclays.accountmanagement.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -26,5 +27,21 @@ public class TransactionService {
 	
 	public Transaction createTransaction(Transaction transaction) {
 		return transactionRepo.save(transaction);
+	}
+	public List<Transaction> findByAccountNumber(long accountNumber) {
+		return transactionRepo.findByAccountNumber(accountNumber);
+	}
+	public boolean getByPerDayLimit(long accountNumber,double amountToWithdraw) {
+		
+		if((transactionRepo.getByPerDayLimit(accountNumber)+amountToWithdraw)<=10000) {
+			System.out.println("Your daily spent amount is "+transactionRepo.getByPerDayLimit(accountNumber)+amountToWithdraw);
+		return true;
+		}
+		/*else if(transactionRepo.getByPerDayLimit(accountNumber)==0.0) {
+			return true;
+		}*/
+		else {
+			return false;
+		}
 	}
 }

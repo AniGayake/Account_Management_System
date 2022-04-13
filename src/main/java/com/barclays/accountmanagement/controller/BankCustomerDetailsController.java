@@ -84,7 +84,7 @@ public class BankCustomerDetailsController {
 	@PostMapping("/adduserdetails")
 	public ResponseEntity<Object> addUserDetails(@RequestBody BankCustomerDetails customerDetails){
 		
-		BankCustomerDetails bankCustomerDetailsfromDB =bankCustomerDetailsService.getDetailsByPan(customerDetails.getPANNumber());
+		BankCustomerDetails bankCustomerDetailsfromDB =bankCustomerDetailsService.getDetailsByPan(customerDetails.getPanNumber());
 		//if user does not exist -> create new one
 		if(bankCustomerDetailsfromDB==null) {
 		
@@ -94,7 +94,7 @@ public class BankCustomerDetailsController {
 			
 				Users newUser = createNewLoginCredentials(bankCustomerDetails);
 				
-				sendEmail(newUser);
+				sendEmail(newUser,customerDetails);
 				
 				return ResponseHandler.generatResponseForAccountCreation("Success", HttpStatus.CREATED, bankCustomerDetails,
 						createbankAccount(bankCustomerDetails));
@@ -151,13 +151,16 @@ public class BankCustomerDetailsController {
 		usersService.createUser(newUser);
 		return newUser;
 	}
-	public void sendEmail(Users user) {
+	public void sendEmail(Users user,BankCustomerDetails bankCustomerDetails) {
 		
 	        SimpleMailMessage msg = new SimpleMailMessage();
-	        msg.setTo("anigayake100@gmail.com");
+	        msg.setTo(bankCustomerDetails.getEmailAddress());
 
-	        msg.setSubject("<Important> Login Credentials for Internet Banking");
-	        msg.setText(user.getCustomerId() + " "+ user.getPassword()+ " ");
+	        msg.setSubject("----<Important>----- Login Credentials for Internet Banking");
+	        msg.setText("Dear" +bankCustomerDetails.getName()+",\nPlease find below your CustomerId and first time login Password for Internet Banking.\nYou will be forced to "
+	        		+ "change your system generated password for first time login.\n"+ 
+	        		" CustomerID: "+ user.getCustomerId() + " \nSystem generated Password:"+ user.getPassword()+ "\n \n"
+	        				+ "Yours Truthful,\n Bank of Group A1 ");
 
 	        javaMailSender.send(msg);
 
