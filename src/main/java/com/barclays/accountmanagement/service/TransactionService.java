@@ -19,12 +19,14 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepo transactionRepo;
 	
+	//Get a list of transactions
 	public Optional<Transaction> getTransaction(String transactionId) {
 		
 		return transactionRepo.findById((Integer.parseInt(transactionId)));
 		
 	}
 	
+	//Generate new transaction
 	public Transaction createTransaction(Transaction transaction) {
 		return transactionRepo.save(transaction);
 	}

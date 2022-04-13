@@ -18,7 +18,9 @@ public class BankCustomerDetailsService {
 	private BankCustomerDetailsRepo bankCustomerDetailsRepo;
 	@Autowired
 	private BankAccountRepo bankAccountRepo;
+	
 	//Create
+	//Create new customer account
 	public BankCustomerDetails createNewCusomer(BankCustomerDetails bankCustomerDetails) {
 		
 		
@@ -28,15 +30,17 @@ public class BankCustomerDetailsService {
 	}
 	
 	//Read
+	//Get Customer details using customer Id
 	public BankCustomerDetails getCustomerDetails(Long customerId) {
 		return  bankCustomerDetailsRepo.findByCustomerId(customerId);
 			
 	}
 	
 	//Update
+	//Implemented in AccountInfoService 
 	
-	
-	//Delete - 
+	//Delete
+	//Delete existing user (Non functional requriment)
 	public void deleteCustomer(Integer customerId) {
 		bankCustomerDetailsRepo.deleteById(customerId);
 		

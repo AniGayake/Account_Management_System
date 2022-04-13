@@ -16,14 +16,18 @@ public class BankAccountService {
 	@Autowired
 	private BankAccountRepo bankAccountRepo;
 	
+	//Find Details by Account No.
 	public BankAccount findByAccountNumber(long accountNumber) {
 		return bankAccountRepo.findById(accountNumber).get();
 	}
 	
+	//Create new user account
 	public BankAccount createAccount(BankAccount bankAccount) {
 		bankAccountRepo.save(bankAccount);
 		return bankAccount;
 	}
+	
+	//Update existing account using account no.
 	public void updateByaccountNumber(double balanceAfterDebit ,long accountNumber) {
 		System.out.println(balanceAfterDebit);
 		 bankAccountRepo.updateAccount(balanceAfterDebit,accountNumber);
