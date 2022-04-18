@@ -23,3 +23,5 @@ Base URL: localhost:9090
 1. GET : /getdetailsbypan/{pannumber} - Check if user exists in DB.
 2. POST : /adduserdetails - If doesnot exists add new user.
 3. POST: /transaction - Credit or debit transaction
+
+Note: You may need to add your locally hosted Mysql db URL, username and password to make the app work.
